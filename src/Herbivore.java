@@ -8,4 +8,12 @@ public class Herbivore implements Movable, Dies{
     public void die() {
 
     }
+
+    public void move(){
+        
+    }
+
+    public void moveAll(){
+
+    }
 }

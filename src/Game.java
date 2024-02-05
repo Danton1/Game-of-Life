@@ -4,6 +4,6 @@ public class Game {
     if click(){
         turn++;
         Herbivore.moveAll();
-        Plants.seed();
+        Plant.seed();
     }
 }

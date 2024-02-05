@@ -1,12 +1,11 @@
-public class Plant implements Movable, Dies{
-
-    @java.lang.Override
-    public boolean canImoveThere() {
-        return false;
-    }
+public class Plant implements Dies{
 
     @Override
     public void die() {
         
+    }
+
+    public void seed(){
+
     }
 }
