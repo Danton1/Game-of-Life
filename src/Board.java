@@ -8,7 +8,9 @@ public class Board {
 
         }
     }
+    Tile[][] grid;
     public Board(int cols, int rows){
+        grid = new Tile[cols][rows];
         RandomGenerator rg = new RandomGenerator();
         int randomNumber = rg.random(0,99);
         if(randomNumber >= 85){
@@ -17,7 +19,8 @@ public class Board {
             new Plant();
         }
     }
-    public boolean canThisGuyMove(Tile whereToMove){
+    public boolean checkMove(Tile currTile, Tile nextTile){
+        //checks if move is legal or not
         return false;
     }
 }
