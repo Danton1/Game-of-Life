@@ -2,6 +2,9 @@ import java.util.Random;
 
 /**
  * Random number generator that generates random numbers within a specified range.
+ * @author Danton Soares
+ * @author Soomin Jeong
+ * @version Lab A2a
  */
 public class RandomGenerator {
 
