@@ -14,6 +14,11 @@ public class Herbivore implements Movable, Dies{
     }
 
     public void moveAll(){
+        // Also calls eats();
+    }
 
+    public void eats(){
+        // Check if there's any edible plants at the current tiles
+        // If yes, makes one plant die in that specific tile; 
     }
 }
