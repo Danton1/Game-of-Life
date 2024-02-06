@@ -1,4 +1,4 @@
-public class Plant implements Reproduces, Dies {
+public class Plant extends Life implements Reproduces {
 
     @Override
     public void die() {
@@ -13,7 +13,12 @@ public class Plant implements Reproduces, Dies {
 
     }
 
-    public void seedAll(){
+    public void seedAll(){ 
+        // All Plants call seed();
+    }
 
+    public boolean isEdible(){
+        // Check if there's any herbivores are around
+        // If yes, makes them edible in that specific tile; 
     }
 }
