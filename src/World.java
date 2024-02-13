@@ -1,5 +1,7 @@
 public class World {
 
+    private enum State {HERBIVORE, PLANT, EMPTY}
+
     public void lifecycle() {
         for (Cell[] cells : this.grid) {
             for (Cell cell : cells) {
@@ -10,8 +12,7 @@ public class World {
         }
     }
 
-    private class Cell {
-        private enum State {HERBIVORE, PLANT, EMPTY}
+    public class Cell {
         private Lifeform life;
         public int[] coord;
         public State currState;
@@ -23,13 +24,14 @@ public class World {
         }
         public void setState (State state) {
             if(state.ordinal() == 0){
-                // Herbivore herb = new Herbivore();
                 life = new Herbivore();
+                currState = state;
             } else if (state.ordinal() == 1){
-                // Plant plant = new Plant();
                 life = new Plant();
+                currState = state;
             } else if (state.ordinal() == 2){
                 life = null;
+                currState = state;
             } 
         }
     }
@@ -38,16 +40,16 @@ public class World {
 
     public World(int cols, int rows) {
         grid = new Cell[cols][rows];
-        RandomGenerator rg = new RandomGenerator();
-        for (Cell[] cells : grid) {
-            for (Cell cell : cells) {
-                int randomNumber = rg.random(0, 99);
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                grid[y][x] = new Cell(x, y);
+                int randomNumber = RandomGenerator.random(0, 99);
                 if (randomNumber >= 85) {
-                    cell.setState(Cell.State.HERBIVORE);
+                    grid[y][x].setState(State.HERBIVORE);
                 } else if (randomNumber >= 65) {
-                    cell.setState(Cell.State.PLANT);
+                    grid[y][x].setState(State.PLANT);
                 } else {
-                    cell.setState(Cell.State.EMPTY);
+                    grid[y][x].setState(State.EMPTY);
                 }
             }
         }

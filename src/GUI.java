@@ -1,36 +1,37 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GUI implements UI{
+public class GUI {
 
     JPanel panel = new JPanel();
     JFrame frame = new JFrame();
 
     public GUI() {
         JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        frame.setBounds(10, 10, 512, 512);
-        frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(700, 700);
+		frame.setLayout(new GridLayout(25,25,0,0));
+        frame.setTitle("Game of Life");
 
         World world = new World(25,25);
-        JPanel panel = new JPanel() {
-            public void paint(Graphics g) {
-                boolean isEmpty = true;
-                for (int y = 0; y < world.grid.length(); y++) {
-                    for (int x = 0; x < world.grid[y].length(); x++) {
-                        if (world.grid[y][x].getCurrState.equalsIgnoreCase("Herbivore")) {
-                            g.setColor(Color.yellow);
-                        } else if (world.grid[y][x].getCurrState().equalsIgnoreCase("Plant")) {
-                            g.setColor(Color.green);
-                        }
-                        g.fillRect(x * 25, y * 25, 625, 625);
-                    }
+
+        JPanel panel[][] = new JPanel[25][25];
+        
+        for (int y = 0; y < world.grid.length; y++) {
+            for (int x = 0; x < world.grid[y].length; x++) {
+                panel[y][x] = new JPanel();
+                panel[y][x].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                if (world.grid[y][x].getCurrState().equalsIgnoreCase("Herbivore")) {
+                    panel[y][x].setBackground(Color.yellow);
+                } else if (world.grid[y][x].getCurrState().equalsIgnoreCase("Plant")) {
+                    panel[y][x].setBackground(Color.green);
+                } else {
+                    panel[y][x].setBackground(Color.white);
                 }
+                frame.add(panel[y][x]);
             }
-
-
         }
-        frame.add(panel);
+
+		frame.setVisible(true);
     }
 }

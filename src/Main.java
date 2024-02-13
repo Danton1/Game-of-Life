@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /**
  * @author Danton Soares
  * @author Soomin Jeong
