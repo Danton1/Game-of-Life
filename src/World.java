@@ -1,5 +1,15 @@
 public class World {
 
+    public void lifecycle() {
+        for (Cell[] cells : this.grid) {
+            for (Cell cell : cells) {
+                cell.life.move();
+                cell.life.eat();
+                cell.life.reproduce();
+            }
+        }
+    }
+
     private class Cell {
         private enum State {HERBIVORE, PLANT, EMPTY}
         private Lifeform life;
@@ -13,10 +23,10 @@ public class World {
         }
         public void setState (State state) {
             if(state.ordinal() == 0){
-                // Herbivore heb = new Herbivore();
+                // Herbivore herb = new Herbivore();
                 life = new Herbivore();
             } else if (state.ordinal() == 1){
-                // Plant cranBerryBush = new Plant();
+                // Plant plant = new Plant();
                 life = new Plant();
             } else if (state.ordinal() == 2){
                 life = null;

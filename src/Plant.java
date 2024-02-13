@@ -1,24 +1,42 @@
-public class Plant extends Lifeform implements Reproduces {
+public class Plant extends Lifeform implements HerbivoreEdible {
 
     @Override
-    public void die() {
-        
-    }
-
-    public boolean canIPollinate(){
+    void die() {
 
     }
 
-    public void seed(){
+    @Override
+    void move() {
 
     }
 
-    public void seedAll(){ 
-        // All Plants call seed();
+    @Override
+    void reproduce() {
+
     }
 
-    public boolean isEdible(){
-        // Check if there's any herbivores are around
-        // If yes, makes them edible in that specific tile; 
+    @Override
+    void eat() {
+
+    }
+
+    @Override
+    boolean canPollinate() {
+        return false;
+    }
+
+    @Override
+    boolean canMove() {
+        return false;
+    }
+
+    @Override
+    boolean canEat() {
+        return false;
+    }
+
+    @Override
+    public boolean isEdible() {
+        return false;
     }
 }

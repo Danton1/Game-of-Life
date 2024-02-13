@@ -4,8 +4,8 @@ abstract class Lifeform {
 
     abstract void die();
     abstract void move();
-    abstract void seed();
-    abstract void eats();
+    abstract void reproduce();
+    abstract void eat();
     abstract boolean canPollinate();
     abstract boolean canMove();
     abstract boolean canEat();

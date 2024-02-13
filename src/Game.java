@@ -3,8 +3,6 @@ public class Game {
     World world = new World(25,25);
     if click(){
         turn++;
-        for(Cell cell : world){
-            cell.life.eat();
-        }
+        world.lifecycle();
     }
 }
