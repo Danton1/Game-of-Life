@@ -14,12 +14,12 @@ public class World {
         private enum State {HERBIVORE, PLANT, EMPTY}
         private Lifeform life;
         public int[] coord;
-        private State currState;
+        public State currState;
         public Cell(int x, int y){
             coord = new int[]{x, y};
         }
-        public State getCurrState(){
-            return this.currState;
+        public String getCurrState(){
+            return this.currState.name();
         }
         public void setState (State state) {
             if(state.ordinal() == 0){
@@ -34,7 +34,7 @@ public class World {
         }
     }
 
-    Cell[][] grid;
+    public Cell[][] grid;
 
     public World(int cols, int rows) {
         grid = new Cell[cols][rows];

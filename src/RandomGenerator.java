@@ -16,7 +16,7 @@ public class RandomGenerator {
      * @return A random integer within the specified range.
      * @throws IllegalArgumentException if lowerBound is greater than or equals to upperBound.
      */
-    public int random(int lowerBound, int upperBound){
+    public static int random(int lowerBound, int upperBound){
         if (lowerBound >= upperBound) {
             throw new IllegalArgumentException("Lower bound must be less than upper bound");
         }
