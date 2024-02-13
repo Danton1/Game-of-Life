@@ -1,4 +1,4 @@
-public class Plant extends Life implements Reproduces {
+public class Plant extends Lifeform implements Reproduces {
 
     @Override
     public void die() {

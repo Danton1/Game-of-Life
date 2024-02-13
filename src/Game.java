@@ -1,9 +1,10 @@
 public class Game {
     int turn = 0;
-    Board board = new Board(25,25);
+    World world = new World(25,25);
     if click(){
         turn++;
-        Herbivore.moveAll();
-        Plant.seed();
+        for(Cell cell : world){
+            cell.life.eat();
+        }
     }
 }

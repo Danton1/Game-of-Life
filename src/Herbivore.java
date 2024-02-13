@@ -1,4 +1,4 @@
-public class Herbivore extends Life implements Movable{
+public class Herbivore extends Lifeform implements Movable{
     @Override
     public boolean canImoveThere() {
         return false;
