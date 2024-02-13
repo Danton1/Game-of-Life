@@ -39,14 +39,16 @@ public class World {
     public World(int cols, int rows) {
         grid = new Cell[cols][rows];
         RandomGenerator rg = new RandomGenerator();
-        for (Cell[] cell : grid) {
-            int randomNumber = rg.random(0,99);
-            if(randomNumber >= 85){
-                cell.setState(Cell.HERBIVORE);
-            } else if(randomNumber >= 65){
-                cell.setState(Cell.PLANT);
-            } else {
-                cell.setState(Cell.EMPTY);
+        for (Cell[] cells : grid) {
+            for (Cell cell : cells) {
+                int randomNumber = rg.random(0, 99);
+                if (randomNumber >= 85) {
+                    cell.setState(Cell.State.HERBIVORE);
+                } else if (randomNumber >= 65) {
+                    cell.setState(Cell.State.PLANT);
+                } else {
+                    cell.setState(Cell.State.EMPTY);
+                }
             }
         }
     }
