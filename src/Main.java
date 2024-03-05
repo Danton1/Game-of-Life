@@ -1,12 +1,10 @@
-import javax.swing.*;
-
 /**
  * @author Danton Soares
- * @author Soomin Jeong
- * @version Lab A2a
+ * @version Assignment 2a
  */
 public class Main {
     public static void main(String[] args) {
-        new GUI();
+        Game game = new Game();
+        new GUI(game);
     }
 }

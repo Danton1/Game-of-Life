@@ -1,4 +1,12 @@
+/**
+ * @author Danton Soares
+ * @version Assignment 2a
+ */
 public class World {
+    private enum State {HERBIVORE, PLANT, EMPTY}
+    public Cell[][] grid;
+    private final int height;
+    private final int width;
 
     public void lifecycle() {
         for (Cell[] cells : this.grid) {
@@ -10,11 +18,10 @@ public class World {
         }
     }
 
-    private class Cell {
-        private enum State {HERBIVORE, PLANT, EMPTY}
+    public class Cell {
         private Lifeform life;
         public int[] coord;
-        public State currState;
+        private State currState;
         public Cell(int x, int y){
             coord = new int[]{x, y};
         }
@@ -22,11 +29,10 @@ public class World {
             return this.currState.name();
         }
         public void setState (State state) {
+            currState = state;
             if(state.ordinal() == 0){
-                // Herbivore herb = new Herbivore();
                 life = new Herbivore();
             } else if (state.ordinal() == 1){
-                // Plant plant = new Plant();
                 life = new Plant();
             } else if (state.ordinal() == 2){
                 life = null;
@@ -34,20 +40,20 @@ public class World {
         }
     }
 
-    public Cell[][] grid;
-
     public World(int cols, int rows) {
+        height = cols;
+        width = rows;
         grid = new Cell[cols][rows];
-        RandomGenerator rg = new RandomGenerator();
-        for (Cell[] cells : grid) {
-            for (Cell cell : cells) {
-                int randomNumber = rg.random(0, 99);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = new Cell(i, j);
+                int randomNumber = RandomGenerator.nextNumber(99);
                 if (randomNumber >= 85) {
-                    cell.setState(Cell.State.HERBIVORE);
+                    grid[i][j].setState(State.HERBIVORE);
                 } else if (randomNumber >= 65) {
-                    cell.setState(Cell.State.PLANT);
+                    grid[i][j].setState(State.PLANT);
                 } else {
-                    cell.setState(Cell.State.EMPTY);
+                    grid[i][j].setState(State.EMPTY);
                 }
             }
         }
@@ -56,5 +62,13 @@ public class World {
     public boolean checkMove (Cell currCell, Cell nextCell) {
         //checks if move is legal or not
         return false;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }

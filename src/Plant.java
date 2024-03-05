@@ -1,3 +1,7 @@
+/**
+ * @author Danton Soares
+ * @version Assignment 2a
+ */
 public class Plant extends Lifeform implements HerbivoreEdible {
 
     @Override

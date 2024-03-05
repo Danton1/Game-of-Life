@@ -1,3 +1,7 @@
+/**
+ * @author Danton Soares
+ * @version Assignment 2a
+ */
 abstract class Lifeform {
     int hunger;
     int maxHunger;

@@ -1,3 +1,3 @@
-public interface HerbivoreEdible {
-    boolean isEdible();
+public interface HerbivoreEdible extends Edible {
+
 }
