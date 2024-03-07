@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * @author Danton Soares
  * @version Assignment 2a
@@ -9,11 +11,31 @@ public class World {
     private final int width;
 
     public void lifecycle() {
-        for (Cell[] cells : this.grid) {
-            for (Cell cell : cells) {
-                cell.life.move();
-                cell.life.eat();
-                cell.life.reproduce();
+        int[][] availableMoves = new int[29][2];
+        int counter = 0;
+        for (int h= 0; h < height; h++) {
+            for (int w = 0; w < width; w++) {
+                if(grid[h][w].life != null){
+                    boolean invalid = true;
+                    int[] checked = new int[8];
+                    int checkedMoves = 0;
+                    while(invalid) {
+                        int[] res = grid[h][w].life.move(h, w);
+                        if(res[0] == 0) break;
+                        int move = res[3];
+                        if (checked[move] == 1){
+                            continue;
+                        }
+                        int[] from = new int[]{h, w};
+                        int[] to = Arrays.copyOfRange(res, 1, 3);
+                        if (checkMove(from, to)) {
+                            move(from, to);
+                            invalid = false;
+                        }
+                        checked[move] = 1;
+                        checkedMoves++;
+                    }
+                }
             }
         }
     }
@@ -36,7 +58,7 @@ public class World {
                 life = new Plant();
             } else if (state.ordinal() == 2){
                 life = null;
-            } 
+            }
         }
     }
 
@@ -59,13 +81,28 @@ public class World {
         }
     }
 
-    public boolean checkMove (Cell currCell, Cell nextCell) {
-        //checks if move is legal or not
-        return false;
+    public boolean checkMove (int[] currCell, int[] nextCell) {
+        int currH = currCell[0];
+        int currW = currCell[1];
+        // Since Plants can't move, return false if they try
+        if(grid[currH][currW].life instanceof HerbivoreEdible) return false;
+        int h = nextCell[0];
+        int w = nextCell[1];
+        /* Checking if the next cell is within the world bounds,
+        if it's not the same as the current cell and if it's herbivore edible
+         */
+        return (h >= 0 && w >= 0 && h < height && w < width && !(h == currH && w == currW));
     }
 
     public int getHeight() {
         return height;
+    }
+
+    private void move(int[] from, int[] to){
+        grid[to[0]][to[1]].life = grid[from[0]][from[1]].life;
+        grid[to[0]][to[1]].setState(grid[from[0]][from[1]].currState);
+        grid[from[0]][from[1]].life = null;
+        grid[from[0]][from[1]].setState(State.EMPTY);
     }
 
     public int getWidth() {

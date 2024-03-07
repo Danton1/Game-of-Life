@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * The GUI class represents the graphical user interface for the Game of Life.
@@ -63,6 +67,58 @@ public class GUI {
 
         // Making the frame visible
         frame.setVisible(true);
+
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                game.incrementTurn();
+                // Looping through each cell in the world grid
+                for(int i = 0; i < world.getHeight(); i++) {
+                    for (int j = 0; j < world.getWidth(); j++) {
+                        update(new int[]{i, j});
+                    }
+                }
+                frame.repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER){
+                    game.incrementTurn();
+                    // Looping through each cell in the world grid
+                    for(int i = 0; i < world.getHeight(); i++) {
+                        for (int j = 0; j < world.getWidth(); j++) {
+                            update(new int[]{i, j});
+                        }
+                    }
+                }
+                            frame.repaint();
+            }
+        });
     }
 
     /**
@@ -77,15 +133,26 @@ public class GUI {
 
         // Getting the type of life form present in the cell
         String typeOfLife = world.grid[x][y].getCurrState();
-
+        // JLabel label = new JLabel();
         // Setting the background color of the cell based on the type of life form
         if (typeOfLife.equalsIgnoreCase("plant")) {
             cells[x][y].setBackground(Color.GREEN);
+            // cells[x][y].add(label);
+            // label.setIcon(new ImageIcon("src/grass.png")); // Relative path
+
+            // // Set the preferred size of the label to match the size of the JPanel
+            // label.setPreferredSize(new Dimension(10, 10));
+            // label.setHorizontalAlignment(SwingConstants.CENTER);
+            // label.setVerticalAlignment(SwingConstants.CENTER);
         } else if (typeOfLife.equalsIgnoreCase("herbivore")) {
             cells[x][y].setBackground(Color.YELLOW);
         } else {
             cells[x][y].setBackground(Color.WHITE);
         }
+
+        // Set the preferred size of the JPanel to match the size of the label
+        // cells[x][y].setPreferredSize(label.getSize());
+        cells[x][y].repaint();
     }
 
 }

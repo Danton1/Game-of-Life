@@ -6,11 +6,10 @@ abstract class Lifeform {
     int hunger;
     int maxHunger;
 
-    abstract void die();
-    abstract void move();
+    abstract boolean die();
+    abstract int[] move(int h, int w);
     abstract void reproduce();
     abstract void eat();
     abstract boolean canPollinate();
-    abstract boolean canMove();
     abstract boolean canEat();
 }

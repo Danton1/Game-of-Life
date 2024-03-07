@@ -5,13 +5,13 @@
 public class Plant extends Lifeform implements HerbivoreEdible {
 
     @Override
-    void die() {
-
+    boolean die() {
+        return false;
     }
 
     @Override
-    void move() {
-
+    int[] move(int h, int w) {
+        return new int[]{0};
     }
 
     @Override
@@ -21,16 +21,11 @@ public class Plant extends Lifeform implements HerbivoreEdible {
 
     @Override
     void eat() {
-
+        return;
     }
 
     @Override
     boolean canPollinate() {
-        return false;
-    }
-
-    @Override
-    boolean canMove() {
         return false;
     }
 

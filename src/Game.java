@@ -3,7 +3,7 @@
  * @version Assignment 2a
  */
 public class Game {
-    int turn = 0;
+    private int turn = 0;
     private final World world;
 
     public Game(){
@@ -12,8 +12,18 @@ public class Game {
     World getWorld(){
         return world;
     }
-//    if click(){
-//        turn++;
-//        world.lifecycle();
-//    }
+
+    void incrementTurn(){
+        turn++;
+        world.lifecycle();
+    }
+    void incrementTurn(int num){
+        for (int i = 0; i < num; i++){
+            turn++;
+            world.lifecycle();
+        }
+    }
+    int getTurn(){
+        return turn;
+    }
 }
