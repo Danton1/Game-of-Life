@@ -1,4 +1,5 @@
 /**
+ * Main class to run the game.
  * @author Danton Soares
  * @version Assignment 2a
  */

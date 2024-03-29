@@ -7,6 +7,11 @@ import java.awt.event.MouseListener;
 
 /**
  * The GUI class represents the graphical user interface for the Game of Life.
+ * It is responsible for displaying the current state of the world and handling
+ * user input. The appearance of each cell in the world is updated based on the
+ * lifeform it currently holds. The GUI class also listens for user input and
+ * updates the game state when the user interacts with the GUI through mouse
+ * clicks or key presses.
  * @author Danton Soares
  * @version Assignment 2a
  */
@@ -25,6 +30,7 @@ public class GUI {
 
     /**
      * Constructs a GUI object with the specified Game object.
+     * The GUI object is responsible for displaying the current state of the world grid and handling user input.
      *
      * @param game The Game object representing the Game of Life simulation.
      */
@@ -38,7 +44,7 @@ public class GUI {
         // Setting up JFrame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 10, 710, 710);
+        frame.setBounds(400, 20, 710, 710);
         frame.setTitle("A2A - Danton Soares");
 
         // Setting up a border to the whole frame
@@ -68,6 +74,7 @@ public class GUI {
         // Making the frame visible
         frame.setVisible(true);
 
+        // Adding a mouse listener to the frame to handle user input
         frame.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -78,6 +85,7 @@ public class GUI {
                         update(new int[]{i, j});
                     }
                 }
+                // Repainting the frame to reflect the updated state of the world grid
                 frame.repaint();
             }
 
@@ -96,15 +104,12 @@ public class GUI {
 
         frame.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
+            public void keyTyped(KeyEvent e) {}
 
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed(KeyEvent e) {}
 
-            }
-
+            // Method to handle pressing Spacebar and Enter to increment the turn
             @Override
             public void keyReleased(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -116,14 +121,15 @@ public class GUI {
                         }
                     }
                 }
-                            frame.repaint();
+                // Repainting the frame to reflect the updated state of the world grid
+                frame.repaint();
             }
         });
     }
 
     /**
      * Updates the appearance of the specified cell based on the lifeform it currently holds.
-     *
+     * 
      * @param coord The coordinates of the cell to update.
      */
     public void update(int[] coord) {
@@ -133,25 +139,15 @@ public class GUI {
 
         // Getting the type of life form present in the cell
         String typeOfLife = world.grid[x][y].getCurrState();
-        // JLabel label = new JLabel();
         // Setting the background color of the cell based on the type of life form
         if (typeOfLife.equalsIgnoreCase("plant")) {
             cells[x][y].setBackground(Color.GREEN);
-            // cells[x][y].add(label);
-            // label.setIcon(new ImageIcon("src/grass.png")); // Relative path
-
-            // // Set the preferred size of the label to match the size of the JPanel
-            // label.setPreferredSize(new Dimension(10, 10));
-            // label.setHorizontalAlignment(SwingConstants.CENTER);
-            // label.setVerticalAlignment(SwingConstants.CENTER);
         } else if (typeOfLife.equalsIgnoreCase("herbivore")) {
             cells[x][y].setBackground(Color.YELLOW);
         } else {
             cells[x][y].setBackground(Color.WHITE);
         }
-
-        // Set the preferred size of the JPanel to match the size of the label
-        // cells[x][y].setPreferredSize(label.getSize());
+        // Repainting the cell to reflect the updated appearance
         cells[x][y].repaint();
     }
 
