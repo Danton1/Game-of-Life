@@ -1,5 +1,5 @@
-# COMP2522 - Assignment 2a
-## The game of Life 
+# The Game of Life
+## An adaptation of John Conways's cellular automaton
 
 <img src="https://media1.tenor.com/m/7dP6_v1QkIIAAAAC/pokemon-bulbasaur.gif" width="400px">
 
