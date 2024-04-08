@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
  * updates the game state when the user interacts with the GUI through mouse
  * clicks or key presses.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
 public class GUI {
     // Class variables declaration
@@ -45,7 +45,7 @@ public class GUI {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(400, 20, 710, 710);
-        frame.setTitle("A2A - Danton Soares");
+        frame.setTitle("A2B - Danton Soares");
 
         // Setting up a border to the whole frame
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Color.WHITE));
@@ -144,6 +144,10 @@ public class GUI {
             cells[x][y].setBackground(Color.GREEN);
         } else if (typeOfLife.equalsIgnoreCase("herbivore")) {
             cells[x][y].setBackground(Color.YELLOW);
+        } else if (typeOfLife.equalsIgnoreCase("carnivore")) {
+            cells[x][y].setBackground(Color.RED);
+        } else if (typeOfLife.equalsIgnoreCase("omnivore")) {
+            cells[x][y].setBackground(Color.BLUE);
         } else {
             cells[x][y].setBackground(Color.WHITE);
         }

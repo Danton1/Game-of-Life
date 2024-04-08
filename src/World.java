@@ -3,10 +3,10 @@
  * The world controls the board and each individual cell,
  * functioning like a board in a board-game.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
 public class World {
-    private enum State {HERBIVORE, PLANT, EMPTY};
+    private enum State {HERBIVORE, PLANT, CARNIVORE, OMNIVORE, EMPTY}
     // Grid representing the world
     public Cell[][] grid;
 
@@ -17,11 +17,13 @@ public class World {
     private final int width;
 
     public void lifecycle() {
+        // Resetting the future world as present world
         for (int h= 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 futureGrid[h][w].setState(grid[h][w].currState);
             }
         }
+
         for (int h= 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if(grid[h][w].life != null){
@@ -35,9 +37,6 @@ public class World {
                 grid[h][w].setState(futureGrid[h][w].currState);
                 if(futureGrid[h][w].life != null) {
                     grid[h][w].life.hunger = futureGrid[h][w].life.hunger;
-                    if(grid[h][w].life.die()){
-                        grid[h][w].setState(State.EMPTY);
-                    }
                 }
                 futureGrid[h][w].setState(State.EMPTY);
             }
@@ -67,6 +66,10 @@ public class World {
             } else if (state.ordinal() == 1){
                 life = new Plant();
             } else if (state.ordinal() == 2){
+                life = new Carnivore();
+            } else if (state.ordinal() == 3){
+                life = new Omnivore();
+            } else if (state.ordinal() == 4){
                 life = null;
             }
         }
@@ -87,11 +90,15 @@ public class World {
                 grid[i][j] = new Cell(i, j);
                 futureGrid[i][j] = new Cell(i, j);
                 futureGrid[i][j].setState(State.EMPTY);
-                int randomNumber = RandomGenerator.nextNumber(99);
-                if (randomNumber >= 85) {
+                int randomNumber = RandomGenerator.nextNumber(99)%100;
+                if (randomNumber >= 80) {
                     grid[i][j].setState(State.HERBIVORE);
-                } else if (randomNumber >= 65) {
+                } else if (randomNumber >= 60) {
                     grid[i][j].setState(State.PLANT);
+                } else if (randomNumber >= 50) {
+                    grid[i][j].setState(State.CARNIVORE);
+                } else if (randomNumber >= 45) {
+                    grid[i][j].setState(State.OMNIVORE);
                 } else {
                     grid[i][j].setState(State.EMPTY);
                 }
@@ -101,30 +108,10 @@ public class World {
 
     /**
      * Checks if the move from the current cell to the next cell is valid.
-     * @param currCell The current cell.
-     * @param nextCell The next cell.
-     * @return True if the move is valid, false otherwise.
+     * @param h The row of the next cell.
+     * @param w The column of the next cell.
+     * @return The next cell if the move is valid, null otherwise.
      */
-    public boolean checkMove (int[] currCell, int[] nextCell) {
-        int currH = currCell[0];
-        int currW = currCell[1];
-        // Since Plants can't move, return false if they try
-        if(grid[currH][currW].life instanceof HerbivoreEdible){
-            futureGrid[currH][currW].setState(grid[currH][currW].currState);
-            return false;
-        }
-        int h = nextCell[0];
-        int w = nextCell[1];
-        //If the next cell is the same as the current cell, return false
-        if (h == currH && w == currW) return false;
-
-        /* Checking if the next cell is within the world bounds,
-         and if it's herbivore edible or null
-         */
-        return ((h >= 0 && w >= 0 && h < height && w < width)
-                && (grid[currH][currW].life.eat(futureGrid[h][w].life) || futureGrid[h][w].life == null));
-    }
-
     public Cell checkMove (int h, int w) {
         // Checking if the next cell is within the world bounds
         if (h >= 0 && w >= 0 && h < height && w < width){
@@ -145,11 +132,10 @@ public class World {
      * Moves the lifeform from the current cell to the next cell.
      * @param from The current cell.
      * @param to The next cell.
-     * @return True if the move was successful, false otherwise.
      */
     private void move(int[] from, int[] to){
         futureGrid[to[0]][to[1]].setState(grid[from[0]][from[1]].currState);
-        futureGrid[to[0]][to[1]].life.hunger = grid[from[0]][from[1]].life.hunger;
+        futureGrid[to[0]][to[1]].life.setHunger(grid[from[0]][from[1]].life);
         futureGrid[from[0]][from[1]].setState(State.EMPTY);
     }
 
@@ -161,21 +147,31 @@ public class World {
      */
     private void move(int h, int w){
         Lifeform life = grid[h][w].life;
-        if (!life.canMove()) return;
         int[] res = life.move(h, w, this);
-        move(new int[]{h, w}, res);
+        if (res != null) {
+            move(new int[]{h, w}, res);
+            if (futureGrid[res[0]][res[1]].life != null
+                    && futureGrid[res[0]][res[1]].life.die()) {
+                futureGrid[res[0]][res[1]].setState(State.EMPTY);
+            }
+        } else {
+            if (futureGrid[h][w].life.die()) {
+                futureGrid[h][w].setState(State.EMPTY);
+            }
+        }
     }
 
     /**
      * Invokes the Lifeform's reproduce method to reproduce the lifeform in the cell,
-     * letting the lifeform decide where to pollinate.
+     * letting the lifeform decide where to reproduce.
+     * @param h The row of the cell.
+     * @param w The column of the cell.
      */
     public void reproduce(int h, int w){
-        if(!grid[h][w].life.canReproduce()) return;
         int[] coord = grid[h][w].life.mate(h, w, this);
         if(coord != null){
             futureGrid[coord[0]][coord[1]].setState(grid[h][w].currState);
-            futureGrid[coord[0]][coord[1]].life.hunger = grid[h][w].life.hunger;
+            futureGrid[coord[0]][coord[1]].life.hunger = 0;
         }
     }
 

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The class representing a plant in the Game of Life simulation.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
 public class Plant extends Lifeform implements HerbivoreEdible {
 
@@ -27,16 +27,14 @@ public class Plant extends Lifeform implements HerbivoreEdible {
 
     /**
      * Reproduces the plant object.
-     * @param options The amount of empty cells the plant can reproduce into.
-     * @return A random number representing the direction the plant should reproduce to.
+     * @param kinCounter The number of Plant objects around the Plant object.
+     * @param foodCounter The number of PlantEdible objects around the Plant object.
+     * @param nullCounter The number of null spaces around the Plant object.
+     * @return True if conditions are met, false otherwise.
      */
     @Override
     boolean reproduce(int kinCounter, int foodCounter, int nullCounter){
-        return kinCounter >= 4 && nullCounter >= 3 && foodCounter == 0;
-    }
-
-    int reproduce(int options) {
-        return RandomGenerator.nextNumber(options);
+        return kinCounter >= 2 && nullCounter >= 3;
     }
 
     /**

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The abstract class representing a generic lifeform in the simulation.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
 abstract class Lifeform {
     // Current hunger level of the lifeform
@@ -13,10 +13,13 @@ abstract class Lifeform {
     int maxHunger = 0;
 
     /**
-     * Abstract method representing the death condition of the lifeform.
+     * Increments the Lifeform's hunger level and checks if it has died from hunger.
      * @return true if the lifeform dies, false otherwise.
      */
-    abstract boolean die();
+    boolean die() {
+        hunger++;
+        return hunger >= maxHunger;
+    }
 
     /**
      * Method representing the movement of the lifeform.
@@ -24,7 +27,7 @@ abstract class Lifeform {
      * @param x X coordinate of the cell where the lifeform is in.
      * @param y Y coordinate of the cell where the lifeform is in.
      * @param world The World where all cells are in.
-     * @return The direction the lifeform should move to.
+     * @return The direction the lifeform should move to or null if no moving options.
      */
     int[] move(int x, int y, World world) {
         int h = x;
@@ -82,7 +85,7 @@ abstract class Lifeform {
             checkedMoves++;
             if(checkedMoves>=8) break;
         }
-        return from;
+        return null;
     }
 
     /**
@@ -177,12 +180,23 @@ abstract class Lifeform {
      */
     abstract boolean canMove();
 
+    /**
+     * Method that sets the hunger level of the lifeform.
+     * @param life The lifeform to get the hunger level from.
+     */
+    void setHunger(Lifeform life){
+        if (life == null) {
+            this.hunger = 0;
+        } else {
+            this.hunger = life.hunger;
+        }
+    }
 
-
-
+    /**
+     * Abstract method that checks if the lifeform is of the same type as the target lifeform.
+     * @param life The lifeform to check if it is the same type as the lifeform.
+     * @return true if the lifeform is of the same type, false otherwise.
+     */
     abstract boolean isMyType(Lifeform life);
 }
-
-
-
 

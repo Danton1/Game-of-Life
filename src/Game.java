@@ -1,7 +1,7 @@
 /**
  * The Game class is responsible for managing the game state and the lifecycle of the World object.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
 public class Game {
     private int turn = 0;

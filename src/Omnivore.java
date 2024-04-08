@@ -1,55 +1,41 @@
 /**
- * The class representing a herbivore in the Game of Life simulation.
+ * The class representing an omnivore in the Game of Life simulation.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
-public class Omnivore extends Lifeform{
+public class Omnivore extends Lifeform implements CarnivoreEdible {
     /**
-     * Constructs a new Herbivore object with default hunger level and maximum hunger.
+     * Constructs a new Omnivore object with default hunger level and maximum hunger.
      */
     Omnivore(){
-        maxHunger = 7;
+        maxHunger = 5;
         hunger = 0;
     }
 
     /**
-     * Increments the Herbivore's hunger level and checks if it has died from hunger.
-     */
-    @Override
-    boolean die() {
-        hunger++;
-        return hunger >= maxHunger;
-    }
-
-    /**
-     * Checks if life is also a Herbivore
-     * @param life The lifeform to check if it is the same type as the Herbivore object.
-     * @return true if life is a Herbivore, false otherwise.
+     * Checks if life is also a Omnivore
+     * @param life The lifeform to check if it is the same type as the Omnivore object.
+     * @return true if life is a Omnivore, false otherwise.
      */
     boolean isMyType(Lifeform life){
         return life instanceof Omnivore;
     }
 
     /**
-     * Reproduces, creating a new Herbivore object if the conditions are met.
-     * @param freeSpaces The list of free spaces around the Herbivore object.
-     * @param kinCounter The number of Herbivore objects around the Herbivore object.
-     * @param foodCounter The number of HerbivoreEdible objects around the Herbivore object.
-     * @param nullCounter The number of null spaces around the Herbivore object.
-     * @return The coordinates of the new Herbivore object if the conditions are met, otherwise the coordinates of the current Herbivore object.
+     * Reproduces, creating a new Omnivore object if the conditions are met.
+     * @param kinCounter The number of Omnivore objects around the Omnivore object.
+     * @param foodCounter The number of Edible objects around the Omnivore object.
+     * @param nullCounter The number of null spaces around the Omnivore object.
+     * @return The coordinates of the new Omnivore object if the conditions are met, otherwise the coordinates of the current Omnivore object.
      */
     @Override
     boolean reproduce(int kinCounter, int foodCounter, int nullCounter){
-        return kinCounter>=1 && nullCounter >=2 && foodCounter>=2;
-    }
-
-    int reproduce(int options){
-        return 0;
+        return kinCounter>=1 && nullCounter >=3 && foodCounter>=1;
     }
 
     /**
-     * Checks if the Herbivore object can pollinate.
-     * @return false since Herbivores cannot pollinate.
+     * Checks if the Omnivore object can reproduce.
+     * @return false since Omnivores cannot reproduce.
      */
     @Override
     boolean canReproduce() {
@@ -57,8 +43,8 @@ public class Omnivore extends Lifeform{
     }
 
     /**
-     * Checks if the Herbivore object can eat.
-     * @return true since Herbivores can eat.
+     * Checks if the Omnivore object can eat.
+     * @return true since Omnivores can eat.
      */
     @Override
     boolean canEat() {
@@ -66,18 +52,18 @@ public class Omnivore extends Lifeform{
     }
 
     /**
-     * Checks if the Herbivore object can eat the specified Lifeform object.
-     * @param life The target Lifeform to check if the Herbivore can eat it.
-     * @return true if the Lifeform is edible by the Herbivore, false otherwise.
+     * Checks if the Omnivore object can eat the specified Lifeform object.
+     * @param life The target Lifeform to check if the Omnivore can eat it.
+     * @return true if the Lifeform is edible by the Omnivore, false otherwise.
      */
     @Override
     boolean canEat(Lifeform life) {
-        return life instanceof HerbivoreEdible;
+        return (life instanceof Edible && !isMyType(life));
     }
 
     /**
-     * Checks if the Herbivore object can move.
-     * @return true since Herbivores can move.
+     * Checks if the Omnivore object can move.
+     * @return true since Omnivores can move.
      */
     @Override
     boolean canMove() {

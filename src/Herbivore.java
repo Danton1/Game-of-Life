@@ -3,24 +3,15 @@ import java.util.ArrayList;
 /**
  * The class representing a herbivore in the Game of Life simulation.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  */
-public class Herbivore extends Lifeform{
+public class Herbivore extends Lifeform implements CarnivoreEdible{
     /**
      * Constructs a new Herbivore object with default hunger level and maximum hunger.
      */
     Herbivore(){
-        maxHunger = 7;
+        maxHunger = 5;
         hunger = 0;
-    }
-
-    /**
-     * Increments the Herbivore's hunger level and checks if it has died from hunger.
-     */
-    @Override
-    boolean die() {
-        hunger++;
-        return hunger >= maxHunger;
     }
 
     /**
@@ -34,7 +25,6 @@ public class Herbivore extends Lifeform{
 
     /**
      * Reproduces, creating a new Herbivore object if the conditions are met.
-     * @param freeSpaces The list of free spaces around the Herbivore object.
      * @param kinCounter The number of Herbivore objects around the Herbivore object.
      * @param foodCounter The number of HerbivoreEdible objects around the Herbivore object.
      * @param nullCounter The number of null spaces around the Herbivore object.
@@ -45,13 +35,9 @@ public class Herbivore extends Lifeform{
         return kinCounter>=1 && nullCounter >=2 && foodCounter>=2;
     }
 
-    int reproduce(int options){
-        return 0;
-    }
-
     /**
-     * Checks if the Herbivore object can pollinate.
-     * @return false since Herbivores cannot pollinate.
+     * Checks if the Herbivore object can reproduce.
+     * @return false since Herbivores cannot reproduce.
      */
     @Override
     boolean canReproduce() {

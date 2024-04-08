@@ -2,7 +2,7 @@
  * HerbivoreEdible is an interface that extends Edible. It is used to represent
  * a lifeform that can be eaten by a Herbivore.
  * @author Danton Soares
- * @version Assignment 2a
+ * @version Assignment 2b
  * @see Herbivore
  * @see Edible
  */
