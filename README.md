@@ -36,6 +36,19 @@ To run the simulation:
 2. Open the project in your preferred IDE.
 3. Compile and run the main class.
 
+
+## Alternative design
+I have also created a Minecraft iteration of this code, with the following equivalencies:
+- Steve is an Omnivore
+- Wolves are Carnivores
+- Sheep are Herbivores
+- Grass are Plants
+- Dirt represents empty tiles
+
+![image](https://github.com/Danton1/Game-of-Life/assets/107024401/c284f1db-36e0-46a6-8cdc-37b5eb04c6d9)
+
+
+
 ### Initial Design:
 Made by:
  - Danton Soares
